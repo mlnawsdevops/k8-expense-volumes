@@ -11,7 +11,7 @@ spec:
     component: mysql 
     tier: db
   ports:
-    protocol: "TCP"
+  - protocol: "TCP"
     port: 3306
     targetPort: 3306
 
@@ -27,7 +27,7 @@ spec:
     component: mysql
     tier: db
   ports:
-  - name: nginx
+  - name: mysql-svc-port
     protocol: "TCP"
     port: 3306
     targetPort: 3306
@@ -45,7 +45,7 @@ spec:
       project: expense
       component: mysql
       tier: db
-  ServiceName: "mysql-headless" #statefulset headless service is referred
+  serviceName: "mysql-headless" #statefulset headless service is referred
   # this is the headless service should be mentioned for statefulset
   template:
     metadata:
@@ -60,7 +60,7 @@ spec:
         volumeMounts:
         - name: mysql
           mountPath: /var/lib/mysql
-  volumeClaimTemplate:
+  volumeClaimTemplates:
   - metadata:
       name: mysql
     spec: 
